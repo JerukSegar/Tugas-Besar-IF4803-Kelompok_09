@@ -33,6 +33,14 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="dokter.h" />
+		<Unit filename="pasien.h" />
+		<Unit filename="main_admin.cpp" />
+		<Unit filename="main_user.cpp" />
+		<Unit filename="dokter_103012400030.cpp" />
+		<Unit filename="dokter_103012400413.cpp" />
+		<Unit filename="pasien_103012400030.cpp" />
+		<Unit filename="pasien_103012400413.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
