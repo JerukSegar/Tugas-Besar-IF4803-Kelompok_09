@@ -1,3 +1,7 @@
+#include "DokterdanPasien.h"
+#include <iostream>
+using namespace std;
+
 void createListPasien(PasienList &L) {
     L.first = nullptr;
 }
