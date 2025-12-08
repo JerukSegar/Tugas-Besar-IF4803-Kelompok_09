@@ -10,7 +10,7 @@ adrPasien newPasien(InfoPasien x) {
     adrPasien P = new elmPasien;
     P->info = x;
     P->next = nullptr;
-    P->nextClass = nullptr;
+    P->prev = nullptr;
     return P;
 }
 
@@ -19,6 +19,7 @@ void insertFirstP(PasienList &L, adrPasien P) {
         L.first = P;
     } else {
         P->next = L.first;
+        L.first->prev = P;
         L.first = P;
     }
 }
@@ -32,6 +33,7 @@ void insertLastP(PasienList &L, adrPasien P) {
             Q = Q->next;
         }
         Q->next = P;
+        P->prev = Q;
     }
 }
 
@@ -39,6 +41,7 @@ void insertAfterP(adrPasien Prec, adrPasien P) {
     if (Prec != nullptr) {
         P->next = Prec->next;
         Prec->next = P;
+        P->prev = Prec;
     }
 }
 
