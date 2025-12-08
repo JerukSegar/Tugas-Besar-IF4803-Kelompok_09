@@ -25,7 +25,7 @@ struct InfoPasien {
 struct elmPasien {
     InfoPasien info;
     adrPasien next;
-    //adrPasien nextClass; kayaknya gausah make ini kan? gatau deh
+    adrPasien prev;
 };
 
 struct PasienList {
@@ -53,9 +53,12 @@ void insertAfterP(adrPasien Prec, adrPasien P);
 void deleteFirstP(PasienList &L, adrPasien &P);
 void deleteLastP(PasienList &L, adrPasien &P);
 void deleteAfterP(adrPasien Prec, adrPasien &P);
+<<<<<<< HEAD
 //-----------------
 adrPasien searchPasien(PasienList &L, int idPasien);
 void showAllPasien(PasienList L);
+=======
+>>>>>>> dab0f32c06d16b2a595cb9cfd9df92979b5c149d
 
 //dokter
 void createListDokter(DokterList &L);//kerja

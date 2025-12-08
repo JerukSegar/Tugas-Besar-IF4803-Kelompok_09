@@ -3,13 +3,13 @@
 using namespace std;
 
 void createListDokter(DokterList &L) {
-    L.first = NULL;
+    L.first = nullptr;
 }
 
 void insertFirstD(DokterList &L, adrDokter P) {
-    if (L.first == NULL) {
+    if (L.first == nullptr) {
         L.first = P;
-        P->next = NULL;
+        P->next = nullptr;
     } else {
         P->next = L.first;
         L.first = P;
@@ -17,21 +17,21 @@ void insertFirstD(DokterList &L, adrDokter P) {
 }
 
 void insertLastD(DokterList &L, adrDokter P) {
-    if (L.first == NULL) {
+    if (L.first == nullptr) {
         L.first = P;
-        P->next = NULL;
+        P->next = nullptr;
     } else {
         adrDokter last = L.first;
-        while (last->next != NULL) {
+        while (last->next != nullptr) {
             last = last->next;
         }
         last->next = P;
-        P->next = NULL;
+        P->next = nullptr;
     }
 }
 
 void insertAfterD(adrDokter Prec, adrDokter P) {
-    if (Prec != NULL) {
+    if (Prec != nullptr) {
         P->next = Prec->next;
         Prec->next = P;
     }
