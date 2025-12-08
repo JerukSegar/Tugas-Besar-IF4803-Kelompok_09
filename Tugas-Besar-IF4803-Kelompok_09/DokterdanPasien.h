@@ -44,22 +44,27 @@ struct DokterList {
 
 //pasien
 void createListPasien(PasienList &L);
-adrPasien createElmPasien(InfoPasien x);
+adrPasien createElmPasien(InfoPasien x);//kerja
 void insertFirstP(PasienList &L, adrPasien P);
 void insertLastP(PasienList &L, adrPasien P);
 void insertAfterP(adrPasien Prec, adrPasien P);
+
+//kerja dibawah ini
 void deleteFirstP(PasienList &L, adrPasien &P);
 void deleteLastP(PasienList &L, adrPasien &P);
 void deleteAfterP(adrPasien Prec, adrPasien &P);
+//-----------------
 adrPasien searchPasien(PasienList &L, int idPasien);
 void showAllPasien(PasienList L);
 
 //dokter
-void createListDokter(DokterList &L);
+void createListDokter(DokterList &L);//kerja
 adrDokter createElmDokter(InfoDokter x);
+//kerja dibawah ini
 void insertFirstD(DokterList &L, adrDokter P);
 void insertLastD(DokterList &L, adrDokter P);
 void insertAfterD(adrDokter Prec, adrDokter P);
+//-----------------
 void deleteFirstD(DokterList &L, adrDokter &P);
 void deleteLastD(DokterList &L, adrDokter &P);
 void deleteAfterD(adrDokter Prec, adrDokter &P);
