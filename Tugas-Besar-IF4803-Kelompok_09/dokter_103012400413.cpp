@@ -16,6 +16,7 @@ void deleteFirstD(DokterList &L, adrDokter &P) {
         P = L.first;
         L.first = P->next;
         P->next = nullptr;
+    }
 }
 
 void deleteLastD(DokterList &L, adrDokter &P) {
@@ -41,4 +42,5 @@ void deleteAfterD(adrDokter Prec, adrDokter &P) {
         P->next = nullptr;
     } else {
         P = nullptr;
+}
 }
