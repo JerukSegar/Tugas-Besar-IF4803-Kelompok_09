@@ -1,19 +1,19 @@
 # depslib dependency file v1.0
-1765186607 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\dokter_103012400413.cpp
+1765499499 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\dokter_103012400413.cpp
 	"DokterdanPasien.h"
 	<iostream>
 
-1765454537 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\main.cpp
+1765464805 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\main.cpp
 	<iostream>
 	"DokterdanPasien.h"
 
-1765454889 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\main_admin.cpp
+1765499852 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\main_admin.cpp
 	<iostream>
 	"DokterdanPasien.h"
 
 1764232169 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\main_user.cpp
 
-1765186607 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\pasien_103012400413.cpp
+1765499522 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\pasien_103012400413.cpp
 	"DokterdanPasien.h"
 	<iostream>
 
@@ -21,11 +21,11 @@
 	"DokterdanPasien.h"
 	<iostream>
 
-1765187321 d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\dokterdanpasien.h
+1765499467 d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\dokterdanpasien.h
 	<iostream>
 	<string>
 
-1765186607 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\pasien_103012400030.cpp
+1765499895 source:d:\kuliah\sem3\tubesstd_09\tugas-besar-if4803-kelompok_09\tugas-besar-if4803-kelompok_09\pasien_103012400030.cpp
 	"DokterdanPasien.h"
 	<iostream>
 

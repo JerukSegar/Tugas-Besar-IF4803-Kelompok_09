@@ -2,8 +2,14 @@
 #include "DokterdanPasien.h"
 using namespace std;
 
+DokterList listDokter;
+PasienList listPasien;
+
 void showMenuAdmin(){
     int pilihan = -1;
+
+    static bool isDokterListCreated = false;
+    static bool isPasienListCreated = false;
 
     while(pilihan != 0) {
         cout << "\n========================================" << endl;
@@ -31,12 +37,12 @@ void showMenuAdmin(){
         cout << "18. Delete After Pasien" << endl;
         cout << "19. Search Pasien" << endl;
         cout << "20. Show All Pasien" << endl;
-        cout << "\n=== RELASI DOKTER-PASIEN ===" << endl;
+        cout << "\n=== RELASI ===" << endl;
         cout << "21. Add Pasien to Dokter" << endl;
         cout << "22. Remove Pasien from Dokter" << endl;
         cout << "23. Search Pasien in Dokter" << endl;
         cout << "24. Show All Pasien by Dokter" << endl;
-        cout << "\n=== FITUR LANJUTAN ===" << endl;
+        cout << "\n=== FITUR STUDI KASUS ===" << endl;
         cout << "25. Insert Dokter by Condition" << endl;
         cout << "26. Delete Dokter by Condition" << endl;
         cout << "27. Add Pasien to Dokter by Condition" << endl;
@@ -51,96 +57,364 @@ void showMenuAdmin(){
 
         if(pilihan == 1) {
             cout << "\n=== CREATE LIST DOKTER ===" << endl;
+            createListDokter(listDokter);
+            isDokterListCreated = true;
+            cout << "List dokter berhasil dibuat!" << endl;
 
         } else if(pilihan == 2) {
             cout << "\n=== CREATE ELEMENT DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                InfoDokter infoDokter;
+                cout << "Masukkan ID Dokter (ID BERUPA INT): ";
+                cin >> infoDokter.idDokter;
+                cin.ignore();
+                cout << "Masukkan Nama Dokter: ";
+                getline(cin, infoDokter.nama);
+                cout << "Masukkan Spesialisasi: ";
+                getline(cin, infoDokter.spesialisasi);
+
+                adrDokter dokter = createElmDokter(infoDokter);
+                cout << "Element dokter berhasil dibuat!" << endl;
+                cout << "Note: Element belum dimasukkan ke list. Gunakan menu insert." << endl;
+            }
 
         } else if(pilihan == 3) {
             cout << "\n=== INSERT FIRST DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                InfoDokter infoDokter;
+                cout << "Masukkan ID Dokter: ";
+                cin >> infoDokter.idDokter;
+                cin.ignore();
+                cout << "Masukkan Nama Dokter: ";
+                getline(cin, infoDokter.nama);
+                cout << "Masukkan Spesialisasi: ";
+                getline(cin, infoDokter.spesialisasi);
+
+                adrDokter dokter = createElmDokter(infoDokter);
+                insertFirstD(listDokter, dokter);
+                cout << "Dokter berhasil ditambahkan di awal list!" << endl;
+            }
 
         } else if(pilihan == 4) {
             cout << "\n=== INSERT LAST DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                InfoDokter infoDokter;
+                cout << "Masukkan ID Dokter: ";
+                cin >> infoDokter.idDokter;
+                cin.ignore();
+                cout << "Masukkan Nama Dokter: ";
+                getline(cin, infoDokter.nama);
+                cout << "Masukkan Spesialisasi: ";
+                getline(cin, infoDokter.spesialisasi);
+
+                adrDokter dokter = createElmDokter(infoDokter);
+                insertLastD(listDokter, dokter);
+                cout << "Dokter berhasil ditambahkan di akhir list!" << endl;
+            }
 
         } else if(pilihan == 5) {
             cout << "\n=== INSERT AFTER DOKTER ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 6) {
             cout << "\n=== DELETE FIRST DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                adrDokter deletedDokter;
+                deleteFirstD(listDokter, deletedDokter);
+                if (deletedDokter != nullptr) {
+                    cout << "Dokter pertama berhasil dihapus: " << deletedDokter->info.nama << endl;
+                    delete deletedDokter;
+                } else {
+                    cout << "List dokter kosong!" << endl;
+                }
+            }
 
         } else if(pilihan == 7) {
             cout << "\n=== DELETE LAST DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                adrDokter deletedDokter;
+                deleteLastD(listDokter, deletedDokter);
+                if (deletedDokter != nullptr) {
+                    cout << "Dokter terakhir berhasil dihapus: " << deletedDokter->info.nama << endl;
+                    delete deletedDokter;
+                } else {
+                    cout << "List dokter kosong!" << endl;
+                }
+            }
 
         } else if(pilihan == 8) {
             cout << "\n=== DELETE AFTER DOKTER ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 9) {
             cout << "\n=== SEARCH DOKTER ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 10) {
             cout << "\n=== SHOW ALL DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                showAllDokter(listDokter);
+            }
 
         } else if(pilihan == 11) {
             cout << "\n=== CREATE LIST PASIEN ===" << endl;
+            createListPasien(listPasien);
+            isPasienListCreated = true;
+            cout << "List pasien berhasil dibuat!" << endl;
 
         } else if(pilihan == 12) {
             cout << "\n=== CREATE ELEMENT PASIEN ===" << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+            } else {
+                InfoPasien infoPasien;
+                cout << "Masukkan ID Pasien: ";
+                cin >> infoPasien.idPasien;
+                cin.ignore();
+                cout << "Masukkan Nama Pasien: ";
+                getline(cin, infoPasien.nama);
+                cout << "Masukkan Umur: ";
+                cin >> infoPasien.umur;
+                cout << "Masukkan ID Penyakit: ";
+                cin >> infoPasien.idPenyakit;
+                cin.ignore();
+                cout << "Masukkan Nama Penyakit: ";
+                getline(cin, infoPasien.penyakit);
+
+                adrPasien pasien = createElmPasien(infoPasien);
+                cout << "Element pasien berhasil dibuat!" << endl;
+                cout << "Note: Element belum dimasukkan ke list. Gunakan menu insert." << endl;
+            }
 
         } else if(pilihan == 13) {
             cout << "\n=== INSERT FIRST PASIEN ===" << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+            } else {
+                InfoPasien infoPasien;
+                cout << "Masukkan ID Pasien: ";
+                cin >> infoPasien.idPasien;
+                cin.ignore();
+                cout << "Masukkan Nama Pasien: ";
+                getline(cin, infoPasien.nama);
+                cout << "Masukkan Umur: ";
+                cin >> infoPasien.umur;
+                cout << "Masukkan ID Penyakit: ";
+                cin >> infoPasien.idPenyakit;
+                cin.ignore();
+                cout << "Masukkan Nama Penyakit: ";
+                getline(cin, infoPasien.penyakit);
+
+                adrPasien pasien = createElmPasien(infoPasien);
+                insertFirstP(listPasien, pasien);
+                cout << "Pasien berhasil ditambahkan di awal list!" << endl;
+            }
 
         } else if(pilihan == 14) {
             cout << "\n=== INSERT LAST PASIEN ===" << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+            } else {
+                InfoPasien infoPasien;
+                cout << "Masukkan ID Pasien: ";
+                cin >> infoPasien.idPasien;
+                cin.ignore();
+                cout << "Masukkan Nama Pasien: ";
+                getline(cin, infoPasien.nama);
+                cout << "Masukkan Umur: ";
+                cin >> infoPasien.umur;
+                cout << "Masukkan ID Penyakit: ";
+                cin >> infoPasien.idPenyakit;
+                cin.ignore();
+                cout << "Masukkan Nama Penyakit: ";
+                getline(cin, infoPasien.penyakit);
+
+                adrPasien pasien = createElmPasien(infoPasien);
+                insertLastP(listPasien, pasien);
+                cout << "Pasien berhasil ditambahkan di akhir list!" << endl;
+            }
 
         } else if(pilihan == 15) {
             cout << "\n=== INSERT AFTER PASIEN ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 16) {
             cout << "\n=== DELETE FIRST PASIEN ===" << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+            } else {
+                adrPasien deletedPasien;
+                deleteFirstP(listPasien, deletedPasien);
+                if (deletedPasien != nullptr) {
+                    cout << "Pasien pertama berhasil dihapus: " << deletedPasien->info.nama << endl;
+                    delete deletedPasien;
+                } else {
+                    cout << "List pasien kosong!" << endl;
+                }
+            }
 
         } else if(pilihan == 17) {
             cout << "\n=== DELETE LAST PASIEN ===" << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+            } else {
+                adrPasien deletedPasien;
+                deleteLastP(listPasien, deletedPasien);
+                if (deletedPasien != nullptr) {
+                    cout << "Pasien terakhir berhasil dihapus: " << deletedPasien->info.nama << endl;
+                    delete deletedPasien;
+                } else {
+                    cout << "List pasien kosong!" << endl;
+                }
+            }
 
         } else if(pilihan == 18) {
             cout << "\n=== DELETE AFTER PASIEN ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 19) {
             cout << "\n=== SEARCH PASIEN ===" << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+            } else {
+                int idCari;
+                cout << "Masukkan ID Pasien yang dicari: ";
+                cin >> idCari;
+                adrPasien found = searchPasien(listPasien, idCari);
+                if (found != nullptr) {
+                    cout << "Pasien ditemukan!" << endl;
+                    cout << "Nama: " << found->info.nama << endl;
+                    cout << "Umur: " << found->info.umur << endl;
+                    cout << "Penyakit: " << found->info.penyakit << endl;
+                } else {
+                    cout << "Pasien dengan ID " << idCari << " tidak ditemukan." << endl;
+                }
+            }
 
         } else if(pilihan == 20) {
             cout << "\n=== SHOW ALL PASIEN ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 21) {
             cout << "\n=== ADD PASIEN TO DOKTER ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 22) {
             cout << "\n=== REMOVE PASIEN FROM DOKTER ===" << endl;
-            // Function call here
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
+
         } else if(pilihan == 23) {
             cout << "\n=== SEARCH PASIEN IN DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                int idDokter, idPasien;
+                cout << "Masukkan ID Dokter: ";
+                cin >> idDokter;
+                cout << "Masukkan ID Pasien yang dicari: ";
+                cin >> idPasien;
+
+                // Cari dokter terlebih dahulu
+                adrDokter dokter = searchDokter(listDokter, idDokter);
+                if (dokter == nullptr) {
+                    cout << "Dokter dengan ID " << idDokter << " tidak ditemukan." << endl;
+                } else {
+                    adrPasien pasien = searchPasienInDokter(dokter, idPasien);
+                    if (pasien != nullptr) {
+                        cout << "Pasien ditemukan pada dokter " << dokter->info.nama << "!" << endl;
+                        cout << "Nama Pasien: " << pasien->info.nama << endl;
+                        cout << "Penyakit: " << pasien->info.penyakit << endl;
+                    } else {
+                        cout << "Pasien dengan ID " << idPasien << " tidak ditemukan pada dokter ini." << endl;
+                    }
+                }
+            }
 
         } else if(pilihan == 24) {
             cout << "\n=== SHOW ALL PASIEN BY DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                int idDokter;
+                cout << "Masukkan ID Dokter: ";
+                cin >> idDokter;
+
+                adrDokter dokter = searchDokter(listDokter, idDokter);
+                if (dokter == nullptr) {
+                    cout << "Dokter dengan ID " << idDokter << " tidak ditemukan." << endl;
+                } else {
+                    showAllPasienByDokter(dokter);
+                }
+            }
 
         } else if(pilihan == 25) {
             cout << "\n=== INSERT DOKTER BY CONDITION ===" << endl;
-            // Function call here
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
+
         } else if(pilihan == 26) {
             cout << "\n=== DELETE DOKTER BY CONDITION ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 27) {
             cout << "\n=== ADD PASIEN TO DOKTER BY CONDITION ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 28) {
             cout << "\n=== REMOVE PASIEN FROM DOKTER BY CONDITION ===" << endl;
+            // Function belum dibuat
+            cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 29) {
             cout << "\n=== COUNT TOTAL PASIEN ALL DOKTER ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                int total = countTotalPasienAllDokter(listDokter);
+                cout << "Total pasien dari semua dokter: " << total << endl;
+            }
 
         } else if(pilihan == 30) {
             cout << "\n=== SEARCH DOKTER BY SPESIALISASI ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                string spesialisasi;
+                cout << "Masukkan spesialisasi yang dicari: ";
+                cin.ignore();
+                getline(cin, spesialisasi);
+                searchDokterBySpesialisasi(listDokter, spesialisasi);
+            }
 
         } else if(pilihan == 31) {
             cout << "\n=== SHOW ALL PASIEN UNIK ===" << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
+            } else {
+                showAllPasienUnik(listDokter);
+            }
 
         } else if(pilihan == 0) {
             cout << "\nKembali ke menu utama..." << endl;

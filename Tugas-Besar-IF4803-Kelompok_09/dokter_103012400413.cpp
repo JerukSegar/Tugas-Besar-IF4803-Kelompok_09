@@ -7,6 +7,7 @@ adrDokter createElmDokter(InfoDokter x) {
     D->info = x;
     D->next = nullptr;
     D->firstPasien = nullptr;
+    return D;
 }
 
 void deleteFirstD(DokterList &L, adrDokter &P) {
@@ -21,7 +22,7 @@ void deleteFirstD(DokterList &L, adrDokter &P) {
 
 void deleteLastD(DokterList &L, adrDokter &P) {
     if (L.first == nullptr) {
-        P = NULL;
+        P = nullptr;
     } else if (L.first->next == nullptr) {
         P = L.first;
         L.first = nullptr;
@@ -42,5 +43,5 @@ void deleteAfterD(adrDokter Prec, adrDokter &P) {
         P->next = nullptr;
     } else {
         P = nullptr;
-}
+    }
 }
