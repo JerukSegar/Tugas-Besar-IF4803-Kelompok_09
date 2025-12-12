@@ -8,7 +8,7 @@ int main()
 {
     int pilihan;
 
-    do {
+    while(pilihan != 3) {
         cout << "\n========================================" << endl;
         cout << "   SISTEM MANAJEMEN DOKTER DAN PASIEN   " << endl;
         cout << "========================================" << endl;
@@ -26,12 +26,11 @@ int main()
             cout << "Menu user belum tersedia." << endl;
         } else if(pilihan == 3) {
             cout << "\n=== EXIT ===" << endl;
-            cout << "Terima kasih telah menggunakan sistem ini!" << endl;
         } else {
             cout << "\nPilihan tidak valid! Silakan pilih 1-3." << endl;
         }
 
-    } while(pilihan != 3);
+    };
 
     return 0;
 }

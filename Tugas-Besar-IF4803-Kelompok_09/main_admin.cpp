@@ -7,11 +7,13 @@ PasienList listPasien;
 
 void showMenuAdmin(){
     int pilihan = -1;
-
+    // ini flag buat ngecek biar ga buatnya berulang ulang
     static bool isDokterListCreated = false;
     static bool isPasienListCreated = false;
 
     while(pilihan != 0) {
+        //kalo mau dipisah, misal pilihan menu child, menu parent, menu relasi, baru munculin primitif
+        //jangan lupa handle error lagi
         cout << "\n========================================" << endl;
         cout << "           MENU ADMIN                   " << endl;
         cout << "========================================" << endl;
@@ -42,6 +44,7 @@ void showMenuAdmin(){
         cout << "22. Remove Pasien from Dokter" << endl;
         cout << "23. Search Pasien in Dokter" << endl;
         cout << "24. Show All Pasien by Dokter" << endl;
+        //dibawah ini fitur pasien
         cout << "\n=== FITUR STUDI KASUS ===" << endl;
         cout << "25. Insert Dokter by Condition" << endl;
         cout << "26. Delete Dokter by Condition" << endl;
@@ -322,7 +325,6 @@ void showMenuAdmin(){
             cout << "\n=== REMOVE PASIEN FROM DOKTER ===" << endl;
             // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
-
         } else if(pilihan == 23) {
             cout << "\n=== SEARCH PASIEN IN DOKTER ===" << endl;
             if (!isDokterListCreated) {
@@ -333,8 +335,6 @@ void showMenuAdmin(){
                 cin >> idDokter;
                 cout << "Masukkan ID Pasien yang dicari: ";
                 cin >> idPasien;
-
-                // Cari dokter terlebih dahulu
                 adrDokter dokter = searchDokter(listDokter, idDokter);
                 if (dokter == nullptr) {
                     cout << "Dokter dengan ID " << idDokter << " tidak ditemukan." << endl;
