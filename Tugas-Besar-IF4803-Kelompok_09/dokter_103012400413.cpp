@@ -45,3 +45,81 @@ void deleteAfterD(adrDokter Prec, adrDokter &P) {
         P = nullptr;
     }
 }
+
+adrDokter searchDokter(DokterList L, int idDokter) {
+    adrDokter D = L.first;
+    while (D != nullptr) {
+        if (D->info.idDokter == idDokter) {
+            return D;
+        }
+        D = D->next;
+    }
+    return nullptr;
+}
+
+void addPasienToDokter(adrDokter dokter, adrPasien pasien) {
+    if (dokter != nullptr && pasien != nullptr) {
+        pasien->next = dokter->firstPasien;
+        dokter->firstPasien = pasien;
+    }
+}
+
+void insertDokterByCondition(DokterList &L, adrDokter P) {
+    if (L.first == nullptr || P->info.idDokter < L.first->info.idDokter) {
+        P->next = L.first;
+        L.first = P;
+        return;
+    }
+
+    adrDokter Q = L.first;
+    while (Q->next != nullptr && Q->next->info.idDokter < P->info.idDokter) {
+        Q = Q->next;
+    }
+
+    P->next = Q->next;
+    Q->next = P;
+}
+
+void deleteDokterByCondition(DokterList &L, int idDokter) {
+    adrDokter P = L.first;
+    adrDokter del = nullptr;
+
+    if (P != nullptr) {
+
+        if (P->info.idDokter == idDokter) {
+            del = P;
+            L.first = P->next;
+            del->next = nullptr;
+        } else {
+
+            while (P->next != nullptr && P->next->info.idDokter != idDokter) {
+                P = P->next;
+            }
+
+            if (P->next != nullptr) {
+                del = P->next;
+                P->next = del->next;
+                del->next = nullptr;
+            }
+        }
+    }
+}
+
+void addPasienToDokterByCondition(adrDokter dokter, adrPasien pasien) {
+    if (dokter != nullptr) {
+        adrPasien &L = dokter->firstPasien;
+
+        if (L == nullptr || pasien->info.idPasien < L->info.idPasien) {
+            pasien->next = L;
+            L = pasien;
+        } else {
+            adrPasien P = L;
+            while (P->next != nullptr && P->next->info.idPasien < pasien->info.idPasien) {
+                P = P->next;
+            }
+
+            pasien->next = P->next;
+            P->next = pasien;
+        }
+    }
+}
