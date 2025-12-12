@@ -51,7 +51,7 @@ void insertAfterP(adrPasien Prec, adrPasien P);
 void deleteFirstP(PasienList &L, adrPasien &P);
 void deleteLastP(PasienList &L, adrPasien &P);
 void deleteAfterP(adrPasien Prec, adrPasien &P);
-adrPasien searchPasien(PasienList L, int idPasien);  // Diperbaiki parameter
+adrPasien searchPasien(PasienList L, int idPasien);
 void showAllPasien(PasienList L);
 
 //dokter

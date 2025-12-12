@@ -2,10 +2,9 @@
 #include "DokterdanPasien.h"
 using namespace std;
 
-void showMenuAdmin();
-
 int main()
 {
+    void showMenuAdmin();
     int pilihan;
 
     while(pilihan != 3) {

@@ -5,19 +5,14 @@ using namespace std;
 DokterList listDokter;
 PasienList listPasien;
 
-void showMenuAdmin(){
-    int pilihan = -1;
-    // ini flag buat ngecek biar ga buatnya berulang ulang
-    static bool isDokterListCreated = false;
-    static bool isPasienListCreated = false;
+// Variabel flag untuk pengecekan inisialisasi
+static bool isDokterListCreated = false;
+static bool isPasienListCreated = false;
 
+void showMenuManajemenDokter() {
+    int pilihan = -1;
     while(pilihan != 0) {
-        //kalo mau dipisah, misal pilihan menu child, menu parent, menu relasi, baru munculin primitif
-        //jangan lupa handle error lagi
-        cout << "\n========================================" << endl;
-        cout << "           MENU ADMIN                   " << endl;
-        cout << "========================================" << endl;
-        cout << "=== MANAJEMEN DOKTER ===" << endl;
+        cout << "\n=== MANAJEMEN DOKTER ===" << endl;
         cout << "1.  Create List Dokter" << endl;
         cout << "2.  Create Element Dokter" << endl;
         cout << "3.  Insert First Dokter" << endl;
@@ -28,33 +23,7 @@ void showMenuAdmin(){
         cout << "8.  Delete After Dokter" << endl;
         cout << "9.  Search Dokter" << endl;
         cout << "10. Show All Dokter" << endl;
-        cout << "\n=== MANAJEMEN PASIEN ===" << endl;
-        cout << "11. Create List Pasien" << endl;
-        cout << "12. Create Element Pasien" << endl;
-        cout << "13. Insert First Pasien" << endl;
-        cout << "14. Insert Last Pasien" << endl;
-        cout << "15. Insert After Pasien" << endl;
-        cout << "16. Delete First Pasien" << endl;
-        cout << "17. Delete Last Pasien" << endl;
-        cout << "18. Delete After Pasien" << endl;
-        cout << "19. Search Pasien" << endl;
-        cout << "20. Show All Pasien" << endl;
-        cout << "\n=== RELASI ===" << endl;
-        cout << "21. Add Pasien to Dokter" << endl;
-        cout << "22. Remove Pasien from Dokter" << endl;
-        cout << "23. Search Pasien in Dokter" << endl;
-        cout << "24. Show All Pasien by Dokter" << endl;
-        //dibawah ini fitur pasien
-        cout << "\n=== FITUR STUDI KASUS ===" << endl;
-        cout << "25. Insert Dokter by Condition" << endl;
-        cout << "26. Delete Dokter by Condition" << endl;
-        cout << "27. Add Pasien to Dokter by Condition" << endl;
-        cout << "28. Remove Pasien from Dokter by Condition" << endl;
-        cout << "29. Count Total Pasien All Dokter" << endl;
-        cout << "30. Search Dokter by Spesialisasi" << endl;
-        cout << "31. Show All Pasien Unik" << endl;
-        cout << "\n0. Kembali ke Menu Utama" << endl;
-        cout << "========================================" << endl;
+        cout << "0.  Kembali ke Menu Admin" << endl;
         cout << "Pilih menu: ";
         cin >> pilihan;
 
@@ -123,7 +92,6 @@ void showMenuAdmin(){
 
         } else if(pilihan == 5) {
             cout << "\n=== INSERT AFTER DOKTER ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 6) {
@@ -158,12 +126,10 @@ void showMenuAdmin(){
 
         } else if(pilihan == 8) {
             cout << "\n=== DELETE AFTER DOKTER ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 9) {
             cout << "\n=== SEARCH DOKTER ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
         } else if(pilihan == 10) {
@@ -174,16 +140,42 @@ void showMenuAdmin(){
                 showAllDokter(listDokter);
             }
 
-        } else if(pilihan == 11) {
+        } else if(pilihan == 0) {
+            cout << "Kembali ke Menu Admin..." << endl;
+        } else {
+            cout << "Pilihan tidak valid!" << endl;
+        }
+    }
+}
+
+void showMenuManajemenPasien() {
+    int pilihan = -1;
+    while(pilihan != 0) {
+        cout << "\n=== MANAJEMEN PASIEN ===" << endl;
+        cout << "1.  Create List Pasien" << endl;
+        cout << "2.  Create Element Pasien" << endl;
+        cout << "3.  Insert First Pasien" << endl;
+        cout << "4.  Insert Last Pasien" << endl;
+        cout << "5.  Insert After Pasien" << endl;
+        cout << "6.  Delete First Pasien" << endl;
+        cout << "7.  Delete Last Pasien" << endl;
+        cout << "8.  Delete After Pasien" << endl;
+        cout << "9.  Search Pasien" << endl;
+        cout << "10. Show All Pasien" << endl;
+        cout << "0.  Kembali ke Menu Admin" << endl;
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+
+        if(pilihan == 1) {
             cout << "\n=== CREATE LIST PASIEN ===" << endl;
             createListPasien(listPasien);
             isPasienListCreated = true;
             cout << "List pasien berhasil dibuat!" << endl;
 
-        } else if(pilihan == 12) {
+        } else if(pilihan == 2) {
             cout << "\n=== CREATE ELEMENT PASIEN ===" << endl;
             if (!isPasienListCreated) {
-                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+                cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoPasien infoPasien;
                 cout << "Masukkan ID Pasien: ";
@@ -204,10 +196,10 @@ void showMenuAdmin(){
                 cout << "Note: Element belum dimasukkan ke list. Gunakan menu insert." << endl;
             }
 
-        } else if(pilihan == 13) {
+        } else if(pilihan == 3) {
             cout << "\n=== INSERT FIRST PASIEN ===" << endl;
             if (!isPasienListCreated) {
-                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+                cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoPasien infoPasien;
                 cout << "Masukkan ID Pasien: ";
@@ -228,10 +220,10 @@ void showMenuAdmin(){
                 cout << "Pasien berhasil ditambahkan di awal list!" << endl;
             }
 
-        } else if(pilihan == 14) {
+        } else if(pilihan == 4) {
             cout << "\n=== INSERT LAST PASIEN ===" << endl;
             if (!isPasienListCreated) {
-                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+                cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoPasien infoPasien;
                 cout << "Masukkan ID Pasien: ";
@@ -252,15 +244,14 @@ void showMenuAdmin(){
                 cout << "Pasien berhasil ditambahkan di akhir list!" << endl;
             }
 
-        } else if(pilihan == 15) {
+        } else if(pilihan == 5) {
             cout << "\n=== INSERT AFTER PASIEN ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
-        } else if(pilihan == 16) {
+        } else if(pilihan == 6) {
             cout << "\n=== DELETE FIRST PASIEN ===" << endl;
             if (!isPasienListCreated) {
-                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+                cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 adrPasien deletedPasien;
                 deleteFirstP(listPasien, deletedPasien);
@@ -272,10 +263,10 @@ void showMenuAdmin(){
                 }
             }
 
-        } else if(pilihan == 17) {
+        } else if(pilihan == 7) {
             cout << "\n=== DELETE LAST PASIEN ===" << endl;
             if (!isPasienListCreated) {
-                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+                cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 adrPasien deletedPasien;
                 deleteLastP(listPasien, deletedPasien);
@@ -287,15 +278,14 @@ void showMenuAdmin(){
                 }
             }
 
-        } else if(pilihan == 18) {
+        } else if(pilihan == 8) {
             cout << "\n=== DELETE AFTER PASIEN ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
-        } else if(pilihan == 19) {
+        } else if(pilihan == 9) {
             cout << "\n=== SEARCH PASIEN ===" << endl;
             if (!isPasienListCreated) {
-                cout << "List pasien belum dibuat! Pilih menu 11 terlebih dahulu." << endl;
+                cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 int idCari;
                 cout << "Masukkan ID Pasien yang dicari: ";
@@ -311,21 +301,39 @@ void showMenuAdmin(){
                 }
             }
 
-        } else if(pilihan == 20) {
+        } else if(pilihan == 10) {
             cout << "\n=== SHOW ALL PASIEN ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
-        } else if(pilihan == 21) {
+        } else if(pilihan == 0) {
+            cout << "Kembali ke Menu Admin..." << endl;
+        } else {
+            cout << "Pilihan tidak valid!" << endl;
+        }
+    }
+}
+
+void showMenuFiturRelasi() {
+    int pilihan = -1;
+    while(pilihan != 0) {
+        cout << "\n=== FITUR RELASI ===" << endl;
+        cout << "1. Add Pasien to Dokter" << endl;
+        cout << "2. Remove Pasien from Dokter" << endl;
+        cout << "3. Search Pasien in Dokter" << endl;
+        cout << "4. Show All Pasien by Dokter" << endl;
+        cout << "0. Kembali ke Menu Admin" << endl;
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+
+        if(pilihan == 1) {
             cout << "\n=== ADD PASIEN TO DOKTER ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
 
-        } else if(pilihan == 22) {
+        } else if(pilihan == 2) {
             cout << "\n=== REMOVE PASIEN FROM DOKTER ===" << endl;
-            // Function belum dibuat
             cout << "Fitur ini belum tersedia." << endl;
-        } else if(pilihan == 23) {
+
+        } else if(pilihan == 3) {
             cout << "\n=== SEARCH PASIEN IN DOKTER ===" << endl;
             if (!isDokterListCreated) {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
@@ -350,7 +358,7 @@ void showMenuAdmin(){
                 }
             }
 
-        } else if(pilihan == 24) {
+        } else if(pilihan == 4) {
             cout << "\n=== SHOW ALL PASIEN BY DOKTER ===" << endl;
             if (!isDokterListCreated) {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
@@ -367,60 +375,39 @@ void showMenuAdmin(){
                 }
             }
 
-        } else if(pilihan == 25) {
-            cout << "\n=== INSERT DOKTER BY CONDITION ===" << endl;
-            // Function belum dibuat
-            cout << "Fitur ini belum tersedia." << endl;
+        } else if(pilihan == 0) {
+            cout << "Kembali ke Menu Admin..." << endl;
+        } else {
+            cout << "Pilihan tidak valid!" << endl;
+        }
+    }
+}
 
-        } else if(pilihan == 26) {
-            cout << "\n=== DELETE DOKTER BY CONDITION ===" << endl;
-            // Function belum dibuat
-            cout << "Fitur ini belum tersedia." << endl;
+void showMenuAdmin(){
+    int pilihan = -1;
 
-        } else if(pilihan == 27) {
-            cout << "\n=== ADD PASIEN TO DOKTER BY CONDITION ===" << endl;
-            // Function belum dibuat
-            cout << "Fitur ini belum tersedia." << endl;
+    while(pilihan != 0) {
+        cout << "\n========================================" << endl;
+        cout << "           MENU ADMIN                   " << endl;
+        cout << "========================================" << endl;
+        cout << "1. Manajemen Dokter" << endl;
+        cout << "2. Manajemen Pasien" << endl;
+        cout << "3. Fitur Relasi" << endl;
+        cout << "0. Kembali ke Menu Utama" << endl;
+        cout << "========================================" << endl;
+        cout << "Pilih menu: ";
+        cin >> pilihan;
 
-        } else if(pilihan == 28) {
-            cout << "\n=== REMOVE PASIEN FROM DOKTER BY CONDITION ===" << endl;
-            // Function belum dibuat
-            cout << "Fitur ini belum tersedia." << endl;
-
-        } else if(pilihan == 29) {
-            cout << "\n=== COUNT TOTAL PASIEN ALL DOKTER ===" << endl;
-            if (!isDokterListCreated) {
-                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
-            } else {
-                int total = countTotalPasienAllDokter(listDokter);
-                cout << "Total pasien dari semua dokter: " << total << endl;
-            }
-
-        } else if(pilihan == 30) {
-            cout << "\n=== SEARCH DOKTER BY SPESIALISASI ===" << endl;
-            if (!isDokterListCreated) {
-                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
-            } else {
-                string spesialisasi;
-                cout << "Masukkan spesialisasi yang dicari: ";
-                cin.ignore();
-                getline(cin, spesialisasi);
-                searchDokterBySpesialisasi(listDokter, spesialisasi);
-            }
-
-        } else if(pilihan == 31) {
-            cout << "\n=== SHOW ALL PASIEN UNIK ===" << endl;
-            if (!isDokterListCreated) {
-                cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
-            } else {
-                showAllPasienUnik(listDokter);
-            }
-
+        if(pilihan == 1) {
+            showMenuManajemenDokter();
+        } else if(pilihan == 2) {
+            showMenuManajemenPasien();
+        } else if(pilihan == 3) {
+            showMenuFiturRelasi();
         } else if(pilihan == 0) {
             cout << "\nKembali ke menu utama..." << endl;
         } else {
             cout << "\nPilihan tidak valid!" << endl;
         }
-
     }
 }
