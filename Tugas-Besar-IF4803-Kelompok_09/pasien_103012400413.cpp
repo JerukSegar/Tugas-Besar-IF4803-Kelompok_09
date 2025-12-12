@@ -55,3 +55,32 @@ adrPasien searchPasien(PasienList L, InfoPasien I) {
     }
     return nullptr;
 }
+
+void removePasienFromDokter(adrDokter dokter, int idPasien, adrPasien &deletedPasien) {
+    deletedPasien = nullptr;
+
+    // Jika dokter atau list pasien kosong
+    if (dokter == nullptr || dokter->firstPasien == nullptr) {
+        // tidak melakukan apa-apa
+    } else {
+        adrPasien P = dokter->firstPasien;
+
+        // Kasus: pasien pertama
+        if (P->info.idPasien == idPasien) {
+            dokter->firstPasien = P->next;
+            P->next = nullptr;
+            deletedPasien = P;
+        } else {
+            // Cari node sebelum pasien yang ingin dihapus
+            while (P->next != nullptr && P->next->info.idPasien != idPasien) {
+                P = P->next;
+            }
+            // Jika ditemukan
+            if (P->next != nullptr) {
+                deletedPasien = P->next;
+                P->next = deletedPasien->next;
+                deletedPasien->next = nullptr;
+            }
+        }
+    }
+}
