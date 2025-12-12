@@ -136,14 +136,3 @@ adrDokter searchDokterBySpesialisasi(DokterList L, string spesialisasi) {
 
     return firstFound;
 }
-
-adrDokter searchDokter(DokterList L, int idDokter) {
-    adrDokter D = L.first;
-    while (D != nullptr) {
-        if (D->info.idDokter == idDokter) {
-            return D;
-        }
-        D = D->next;
-    }
-    return nullptr;
-}
