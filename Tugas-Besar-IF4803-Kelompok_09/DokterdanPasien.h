@@ -51,7 +51,7 @@ void insertAfterP(adrPasien Prec, adrPasien P);
 void deleteFirstP(PasienList &L, adrPasien &P);
 void deleteLastP(PasienList &L, adrPasien &P);
 void deleteAfterP(adrPasien Prec, adrPasien &P);
-adrPasien searchPasien(PasienList &L, int idPasien);
+adrPasien searchPasien(PasienList L, int idPasien);
 void showAllPasien(PasienList L);
 
 //dokter
@@ -63,28 +63,22 @@ void insertAfterD(adrDokter Prec, adrDokter P);
 void deleteFirstD(DokterList &L, adrDokter &P);
 void deleteLastD(DokterList &L, adrDokter &P);
 void deleteAfterD(adrDokter Prec, adrDokter &P);
+adrDokter searchDokter(DokterList L, int idDokter);
+void showAllDokter(DokterList L);
 
 //relasi
-adrDokter searchDokter(DokterList L, int idDokter);
 void addPasienToDokter(adrDokter dokter, adrPasien pasien);
 void removePasienFromDokter(adrDokter dokter, int idPasien, adrPasien &deletedPasien);
-
-//---------------------------------------------------------------------
-//yang dibawah ku kerjain
 adrPasien searchPasienInDokter(adrDokter dokter, int idPasien);
 void showAllPasienByDokter(adrDokter dokter);
 
-
+//studi kasus
 void insertDokterByCondition(DokterList &L, adrDokter P);
 void deleteDokterByCondition(DokterList &L, int idDokter);
 void addPasienToDokterByCondition(adrDokter dokter, adrPasien pasien);
 void removePasienFromDokterByCondition(adrDokter dokter, int idPasien);
-
-//---------------------------------------------------------------------
-//yang dibawah ku kerjain
 int countTotalPasienAllDokter(DokterList L);
 adrDokter searchDokterBySpesialisasi(DokterList L, string spesialisasi);
-void showAllDokter(DokterList L);
 void showAllPasienUnik(DokterList L);
 
-#endif // DOKTERDANPASIEN_H_INCLUDED
+#endif

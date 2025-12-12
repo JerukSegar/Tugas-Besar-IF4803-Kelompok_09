@@ -38,17 +38,21 @@ void insertLastP(PasienList &L, adrPasien P) {
 }
 
 void insertAfterP(adrPasien Prec, adrPasien P) {
-    if (Prec != nullptr) {
+    if (Prec != nullptr && Prec->next != nullptr) {
         P->next = Prec->next;
+        P->prev = Prec;
+        Prec->next->prev = P;
+        Prec->next = P;
+    } else if (Prec != nullptr) {
         Prec->next = P;
         P->prev = Prec;
     }
 }
 
-adrPasien searchPasien(PasienList L, InfoPasien I) {
+adrPasien searchPasien(PasienList L, int idPasien) {
     adrPasien P = L.first;
     while (P != nullptr) {
-        if (P->info.idPasien == I.idPasien || P->info.nama == I.nama) {
+        if (P->info.idPasien == idPasien) {
             return P;
         }
         P = P->next;

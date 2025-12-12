@@ -7,6 +7,7 @@ adrDokter createElmDokter(InfoDokter x) {
     D->info = x;
     D->next = nullptr;
     D->firstPasien = nullptr;
+    return D;
 }
 
 void deleteFirstD(DokterList &L, adrDokter &P) {
@@ -21,7 +22,7 @@ void deleteFirstD(DokterList &L, adrDokter &P) {
 
 void deleteLastD(DokterList &L, adrDokter &P) {
     if (L.first == nullptr) {
-        P = NULL;
+        P = nullptr;
     } else if (L.first->next == nullptr) {
         P = L.first;
         L.first = nullptr;
@@ -45,7 +46,6 @@ void deleteAfterD(adrDokter Prec, adrDokter &P) {
     }
 }
 
-//search by idDokter
 adrDokter searchDokter(DokterList L, int idDokter) {
     adrDokter D = L.first;
     while (D != nullptr) {
@@ -86,18 +86,16 @@ void deleteDokterByCondition(DokterList &L, int idDokter) {
 
     if (P != nullptr) {
 
-        // Kasus: dokter pertama yang dihapus
         if (P->info.idDokter == idDokter) {
             del = P;
             L.first = P->next;
             del->next = nullptr;
         } else {
-            // Cari node sebelum yang ingin dihapus
+
             while (P->next != nullptr && P->next->info.idDokter != idDokter) {
                 P = P->next;
             }
 
-            // Jika ditemukan
             if (P->next != nullptr) {
                 del = P->next;
                 P->next = del->next;
@@ -109,27 +107,19 @@ void deleteDokterByCondition(DokterList &L, int idDokter) {
 
 void addPasienToDokterByCondition(adrDokter dokter, adrPasien pasien) {
     if (dokter != nullptr) {
-
         adrPasien &L = dokter->firstPasien;
 
-        // Kasus: list kosong atau harus masuk di depan
         if (L == nullptr || pasien->info.idPasien < L->info.idPasien) {
             pasien->next = L;
             L = pasien;
         } else {
-            // Cari posisi penyisipan
             adrPasien P = L;
             while (P->next != nullptr && P->next->info.idPasien < pasien->info.idPasien) {
                 P = P->next;
             }
 
-            // Insert setelah P
             pasien->next = P->next;
             P->next = pasien;
         }
     }
 }
-
-
-
-
