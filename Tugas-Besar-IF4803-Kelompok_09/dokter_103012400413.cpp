@@ -48,6 +48,7 @@ void deleteAfterD(adrDokter Prec, adrDokter &P) {
 
 adrDokter searchDokter(DokterList L, int idDokter) {
     adrDokter D = L.first;
+
     while (D != nullptr) {
         if (D->info.idDokter == idDokter) {
             return D;
@@ -58,68 +59,98 @@ adrDokter searchDokter(DokterList L, int idDokter) {
 }
 
 void addPasienToDokter(adrDokter dokter, adrPasien pasien) {
-    if (dokter != nullptr && pasien != nullptr) {
-        pasien->next = dokter->firstPasien;
-        dokter->firstPasien = pasien;
-    }
-}
-
-void insertDokterByCondition(DokterList &L, adrDokter P) {
-    if (L.first == nullptr || P->info.idDokter < L.first->info.idDokter) {
-        P->next = L.first;
-        L.first = P;
+    if (dokter == nullptr || pasien == nullptr) {
         return;
     }
 
-    adrDokter Q = L.first;
-    while (Q->next != nullptr && Q->next->info.idDokter < P->info.idDokter) {
-        Q = Q->next;
-    }
+    PasienList L;
+    L.first = dokter->firstPasien;
 
-    P->next = Q->next;
-    Q->next = P;
+    // Tambah pasien di akhir
+    insertLastP(L, pasien);
+
+    // Update firstPasien dokter
+    dokter->firstPasien = L.first;
 }
 
+//idDokter harus Unik
+void insertDokterByCondition(DokterList &L, adrDokter P) {
+    if (P == nullptr) return;
+
+    // Cek idDokter unik
+    if (searchDokter(L, P->info.idDokter) != nullptr) {
+        return;
+    }
+
+    // Jika list kosong atau harus di depan
+    if (L.first == nullptr ||
+        P->info.spesialisasi < L.first->info.spesialisasi) {
+        insertFirstD(L, P);
+    }
+    else {
+        adrDokter Prec = L.first;
+
+        while (Prec->next != nullptr &&
+               Prec->next->info.spesialisasi < P->info.spesialisasi) {
+            Prec = Prec->next;
+        }
+
+        if (Prec->next == nullptr) {
+            insertLastD(L, P);
+        } else {
+            insertAfterD(Prec, P);
+        }
+    }
+}
+
+//Hapus Dokter jika tidak punya pasien
 void deleteDokterByCondition(DokterList &L, int idDokter) {
-    adrDokter P = L.first;
-    adrDokter del = nullptr;
+    if (L.first == nullptr) return;
 
-    if (P != nullptr) {
+    adrDokter D = searchDokter(L, idDokter);
+    if (D == nullptr) return;
 
-        if (P->info.idDokter == idDokter) {
-            del = P;
-            L.first = P->next;
-            del->next = nullptr;
-        } else {
+    // Kondisi unik: tidak boleh punya pasien
+    if (D->firstPasien != nullptr) {
+        return;
+    }
 
-            while (P->next != nullptr && P->next->info.idDokter != idDokter) {
-                P = P->next;
-            }
+    adrDokter deleted;
 
-            if (P->next != nullptr) {
-                del = P->next;
-                P->next = del->next;
-                del->next = nullptr;
-            }
+    if (D == L.first) {
+        deleteFirstD(L, deleted);
+    }
+    else if (D->next == nullptr) {
+        deleteLastD(L, deleted);
+    }
+    else {
+        adrDokter Prec = L.first;
+        while (Prec->next != D) {
+            Prec = Prec->next;
         }
+        deleteAfterD(Prec, deleted);
     }
 }
 
-void addPasienToDokterByCondition(adrDokter dokter, adrPasien pasien) {
-    if (dokter != nullptr) {
-        adrPasien &L = dokter->firstPasien;
 
-        if (L == nullptr || pasien->info.idPasien < L->info.idPasien) {
-            pasien->next = L;
-            L = pasien;
-        } else {
-            adrPasien P = L;
-            while (P->next != nullptr && P->next->info.idPasien < pasien->info.idPasien) {
-                P = P->next;
-            }
 
-            pasien->next = P->next;
-            P->next = pasien;
+void HitungPasienSetiapDokter(DokterList L) {
+    adrDokter D = L.first;
+
+    while (D != nullptr) {
+        int jumlah = 0;
+        adrPasien P = D->firstPasien;
+
+        while (P != nullptr) {
+            jumlah++;
+            P = P->next;
         }
+
+        cout << "Dokter: " << D->info.nama
+             << " | Spesialisasi: " << D->info.spesialisasi
+             << " | Jumlah Pasien: " << jumlah << endl;
+
+        D = D->next;
     }
 }
+

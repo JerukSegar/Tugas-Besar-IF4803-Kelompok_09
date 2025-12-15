@@ -80,5 +80,6 @@ void removePasienFromDokterByCondition(adrDokter dokter, int idPasien);
 int countTotalPasienAllDokter(DokterList L);
 adrDokter searchDokterBySpesialisasi(DokterList L, string spesialisasi);
 void showAllPasienUnik(DokterList L);
+void HitungPasienSetiapDokter(DokterList L);
 
 #endif

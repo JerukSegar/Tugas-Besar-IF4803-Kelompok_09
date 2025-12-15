@@ -392,7 +392,6 @@ void showMenuAdmin(){
         cout << "========================================" << endl;
         cout << "1. Manajemen Dokter" << endl;
         cout << "2. Manajemen Pasien" << endl;
-        cout << "3. Fitur Relasi" << endl;
         cout << "0. Kembali ke Menu Utama" << endl;
         cout << "========================================" << endl;
         cout << "Pilih menu: ";
@@ -402,8 +401,6 @@ void showMenuAdmin(){
             showMenuManajemenDokter();
         } else if(pilihan == 2) {
             showMenuManajemenPasien();
-        } else if(pilihan == 3) {
-            showMenuFiturRelasi();
         } else if(pilihan == 0) {
             cout << "\nKembali ke menu utama..." << endl;
         } else {
