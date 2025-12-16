@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "DokterdanPasien.h"
 using namespace std;
 
@@ -8,6 +9,36 @@ PasienList listPasien;
 // Variabel flag untuk pengecekan inisialisasi
 static bool isDokterListCreated = false;
 static bool isPasienListCreated = false;
+
+// Fungsi helper dengan static untuk menghindari multiple definition
+static void clearInputBuffer() {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+static int getValidIntInput(const string& prompt, const string& errorMessage = "Input tidak valid! Hanya menerima angka integer.") {
+    int value;
+    while (true) {
+        cout << prompt;
+        cin >> value;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << errorMessage << endl;
+        } else {
+            cin.ignore();
+            return value;
+        }
+    }
+}
+
+static string getStringInput(const string& prompt) {
+    string value;
+    cout << prompt;
+    getline(cin, value);
+    return value;
+}
 
 void showMenuManajemenDokter() {
     int pilihan = -1;
@@ -24,8 +55,9 @@ void showMenuManajemenDokter() {
         cout << "9.  Search Dokter" << endl;
         cout << "10. Show All Dokter" << endl;
         cout << "0.  Kembali ke Menu Admin" << endl;
-        cout << "Pilih menu: ";
-        cin >> pilihan;
+        cout << "Pilih menu (0-10, HANYA BISA MENERIMA INTEGER): ";
+
+        pilihan = getValidIntInput("", "Input tidak valid! Hanya menerima angka integer (0-10).\nPilih menu (0-10): ");
 
         if(pilihan == 1) {
             cout << "\n=== CREATE LIST DOKTER ===" << endl;
@@ -39,13 +71,11 @@ void showMenuManajemenDokter() {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoDokter infoDokter;
-                cout << "Masukkan ID Dokter (ID BERUPA INT): ";
-                cin >> infoDokter.idDokter;
-                cin.ignore();
-                cout << "Masukkan Nama Dokter: ";
-                getline(cin, infoDokter.nama);
-                cout << "Masukkan Spesialisasi: ";
-                getline(cin, infoDokter.spesialisasi);
+
+                infoDokter.idDokter = getValidIntInput("Masukkan ID Dokter (ID BERUPA INTEGER): ");
+
+                infoDokter.nama = getStringInput("Masukkan Nama Dokter: ");
+                infoDokter.spesialisasi = getStringInput("Masukkan Spesialisasi: ");
 
                 adrDokter dokter = createElmDokter(infoDokter);
                 cout << "Element dokter berhasil dibuat!" << endl;
@@ -58,13 +88,10 @@ void showMenuManajemenDokter() {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoDokter infoDokter;
-                cout << "Masukkan ID Dokter: ";
-                cin >> infoDokter.idDokter;
-                cin.ignore();
-                cout << "Masukkan Nama Dokter: ";
-                getline(cin, infoDokter.nama);
-                cout << "Masukkan Spesialisasi: ";
-                getline(cin, infoDokter.spesialisasi);
+
+                infoDokter.idDokter = getValidIntInput("Masukkan ID Dokter (HANYA INTEGER): ");
+                infoDokter.nama = getStringInput("Masukkan Nama Dokter: ");
+                infoDokter.spesialisasi = getStringInput("Masukkan Spesialisasi: ");
 
                 adrDokter dokter = createElmDokter(infoDokter);
                 insertFirstD(listDokter, dokter);
@@ -77,13 +104,10 @@ void showMenuManajemenDokter() {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoDokter infoDokter;
-                cout << "Masukkan ID Dokter: ";
-                cin >> infoDokter.idDokter;
-                cin.ignore();
-                cout << "Masukkan Nama Dokter: ";
-                getline(cin, infoDokter.nama);
-                cout << "Masukkan Spesialisasi: ";
-                getline(cin, infoDokter.spesialisasi);
+
+                infoDokter.idDokter = getValidIntInput("Masukkan ID Dokter (HANYA INTEGER): ");
+                infoDokter.nama = getStringInput("Masukkan Nama Dokter: ");
+                infoDokter.spesialisasi = getStringInput("Masukkan Spesialisasi: ");
 
                 adrDokter dokter = createElmDokter(infoDokter);
                 insertLastD(listDokter, dokter);
@@ -143,7 +167,7 @@ void showMenuManajemenDokter() {
         } else if(pilihan == 0) {
             cout << "Kembali ke Menu Admin..." << endl;
         } else {
-            cout << "Pilihan tidak valid!" << endl;
+            cout << "Pilihan tidak valid! Harap masukkan angka antara 0-10." << endl;
         }
     }
 }
@@ -163,8 +187,9 @@ void showMenuManajemenPasien() {
         cout << "9.  Search Pasien" << endl;
         cout << "10. Show All Pasien" << endl;
         cout << "0.  Kembali ke Menu Admin" << endl;
-        cout << "Pilih menu: ";
-        cin >> pilihan;
+        cout << "Pilih menu (0-10, HANYA BISA MENERIMA INTEGER): ";
+
+        pilihan = getValidIntInput("", "Input tidak valid! Hanya menerima angka integer (0-10).\nPilih menu (0-10): ");
 
         if(pilihan == 1) {
             cout << "\n=== CREATE LIST PASIEN ===" << endl;
@@ -178,18 +203,12 @@ void showMenuManajemenPasien() {
                 cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoPasien infoPasien;
-                cout << "Masukkan ID Pasien: ";
-                cin >> infoPasien.idPasien;
-                cin.ignore();
-                cout << "Masukkan Nama Pasien: ";
-                getline(cin, infoPasien.nama);
-                cout << "Masukkan Umur: ";
-                cin >> infoPasien.umur;
-                cout << "Masukkan ID Penyakit: ";
-                cin >> infoPasien.idPenyakit;
-                cin.ignore();
-                cout << "Masukkan Nama Penyakit: ";
-                getline(cin, infoPasien.penyakit);
+
+                infoPasien.idPasien = getValidIntInput("Masukkan ID Pasien (HANYA INTEGER): ");
+                infoPasien.nama = getStringInput("Masukkan Nama Pasien: ");
+                infoPasien.umur = getValidIntInput("Masukkan Umur (HANYA INTEGER): ");
+                infoPasien.idPenyakit = getValidIntInput("Masukkan ID Penyakit (HANYA INTEGER): ");
+                infoPasien.penyakit = getStringInput("Masukkan Nama Penyakit: ");
 
                 adrPasien pasien = createElmPasien(infoPasien);
                 cout << "Element pasien berhasil dibuat!" << endl;
@@ -202,18 +221,12 @@ void showMenuManajemenPasien() {
                 cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoPasien infoPasien;
-                cout << "Masukkan ID Pasien: ";
-                cin >> infoPasien.idPasien;
-                cin.ignore();
-                cout << "Masukkan Nama Pasien: ";
-                getline(cin, infoPasien.nama);
-                cout << "Masukkan Umur: ";
-                cin >> infoPasien.umur;
-                cout << "Masukkan ID Penyakit: ";
-                cin >> infoPasien.idPenyakit;
-                cin.ignore();
-                cout << "Masukkan Nama Penyakit: ";
-                getline(cin, infoPasien.penyakit);
+
+                infoPasien.idPasien = getValidIntInput("Masukkan ID Pasien (HANYA INTEGER): ");
+                infoPasien.nama = getStringInput("Masukkan Nama Pasien: ");
+                infoPasien.umur = getValidIntInput("Masukkan Umur (HANYA INTEGER): ");
+                infoPasien.idPenyakit = getValidIntInput("Masukkan ID Penyakit (HANYA INTEGER): ");
+                infoPasien.penyakit = getStringInput("Masukkan Nama Penyakit: ");
 
                 adrPasien pasien = createElmPasien(infoPasien);
                 insertFirstP(listPasien, pasien);
@@ -226,18 +239,12 @@ void showMenuManajemenPasien() {
                 cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
                 InfoPasien infoPasien;
-                cout << "Masukkan ID Pasien: ";
-                cin >> infoPasien.idPasien;
-                cin.ignore();
-                cout << "Masukkan Nama Pasien: ";
-                getline(cin, infoPasien.nama);
-                cout << "Masukkan Umur: ";
-                cin >> infoPasien.umur;
-                cout << "Masukkan ID Penyakit: ";
-                cin >> infoPasien.idPenyakit;
-                cin.ignore();
-                cout << "Masukkan Nama Penyakit: ";
-                getline(cin, infoPasien.penyakit);
+
+                infoPasien.idPasien = getValidIntInput("Masukkan ID Pasien (HANYA INTEGER): ");
+                infoPasien.nama = getStringInput("Masukkan Nama Pasien: ");
+                infoPasien.umur = getValidIntInput("Masukkan Umur (HANYA INTEGER): ");
+                infoPasien.idPenyakit = getValidIntInput("Masukkan ID Penyakit (HANYA INTEGER): ");
+                infoPasien.penyakit = getStringInput("Masukkan Nama Penyakit: ");
 
                 adrPasien pasien = createElmPasien(infoPasien);
                 insertLastP(listPasien, pasien);
@@ -287,9 +294,7 @@ void showMenuManajemenPasien() {
             if (!isPasienListCreated) {
                 cout << "List pasien belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
-                int idCari;
-                cout << "Masukkan ID Pasien yang dicari: ";
-                cin >> idCari;
+                int idCari = getValidIntInput("Masukkan ID Pasien yang dicari (HANYA INTEGER): ");
                 adrPasien found = searchPasien(listPasien, idCari);
                 if (found != nullptr) {
                     cout << "Pasien ditemukan!" << endl;
@@ -308,7 +313,7 @@ void showMenuManajemenPasien() {
         } else if(pilihan == 0) {
             cout << "Kembali ke Menu Admin..." << endl;
         } else {
-            cout << "Pilihan tidak valid!" << endl;
+            cout << "Pilihan tidak valid! Harap masukkan angka antara 0-10." << endl;
         }
     }
 }
@@ -322,8 +327,9 @@ void showMenuFiturRelasi() {
         cout << "3. Search Pasien in Dokter" << endl;
         cout << "4. Show All Pasien by Dokter" << endl;
         cout << "0. Kembali ke Menu Admin" << endl;
-        cout << "Pilih menu: ";
-        cin >> pilihan;
+        cout << "Pilih menu (0-4, HANYA BISA MENERIMA INTEGER): ";
+
+        pilihan = getValidIntInput("", "Input tidak valid! Hanya menerima angka integer (0-4).\nPilih menu (0-4): ");
 
         if(pilihan == 1) {
             cout << "\n=== ADD PASIEN TO DOKTER ===" << endl;
@@ -338,14 +344,12 @@ void showMenuFiturRelasi() {
             if (!isDokterListCreated) {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
-                int idDokter, idPasien;
-                cout << "Masukkan ID Dokter: ";
-                cin >> idDokter;
-                cout << "Masukkan ID Pasien yang dicari: ";
-                cin >> idPasien;
+                int idDokter = getValidIntInput("Masukkan ID Dokter (HANYA INTEGER): ");
+                int idPasien = getValidIntInput("Masukkan ID Pasien yang dicari (HANYA INTEGER): ");
+
                 adrDokter dokter = searchDokter(listDokter, idDokter);
                 if (dokter == nullptr) {
-                    cout << "Dokter dengan ID " << idDokter << " tidak ditemukan." << endl;
+                    cout << "Dokter dengan ID" << idDokter << " tidak ditemukan." << endl;
                 } else {
                     adrPasien pasien = searchPasienInDokter(dokter, idPasien);
                     if (pasien != nullptr) {
@@ -363,9 +367,7 @@ void showMenuFiturRelasi() {
             if (!isDokterListCreated) {
                 cout << "List dokter belum dibuat! Pilih menu 1 terlebih dahulu." << endl;
             } else {
-                int idDokter;
-                cout << "Masukkan ID Dokter: ";
-                cin >> idDokter;
+                int idDokter = getValidIntInput("Masukkan ID Dokter (HANYA INTEGER): ");
 
                 adrDokter dokter = searchDokter(listDokter, idDokter);
                 if (dokter == nullptr) {
@@ -378,7 +380,7 @@ void showMenuFiturRelasi() {
         } else if(pilihan == 0) {
             cout << "Kembali ke Menu Admin..." << endl;
         } else {
-            cout << "Pilihan tidak valid!" << endl;
+            cout << "Pilihan tidak valid! Harap masukkan angka antara 0-4." << endl;
         }
     }
 }
@@ -395,8 +397,9 @@ void showMenuAdmin(){
         cout << "3. Fitur Relasi" << endl;
         cout << "0. Kembali ke Menu Utama" << endl;
         cout << "========================================" << endl;
-        cout << "Pilih menu: ";
-        cin >> pilihan;
+        cout << "Pilih menu (0-3, HANYA BISA MENERIMA INTEGER): ";
+
+        pilihan = getValidIntInput("", "Input tidak valid! Hanya menerima angka integer (0-3).\nPilih menu (0-3): ");
 
         if(pilihan == 1) {
             showMenuManajemenDokter();
@@ -407,7 +410,7 @@ void showMenuAdmin(){
         } else if(pilihan == 0) {
             cout << "\nKembali ke menu utama..." << endl;
         } else {
-            cout << "\nPilihan tidak valid!" << endl;
+            cout << "\nPilihan tidak valid! Harap masukkan angka antara 0-3." << endl;
         }
     }
 }
