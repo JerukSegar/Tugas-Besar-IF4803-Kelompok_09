@@ -4,6 +4,7 @@ using namespace std;
 
 int main()
 {
+    void showMenuUser();
     void showMenuAdmin();
     int pilihan;
 
@@ -21,8 +22,7 @@ int main()
         if(pilihan == 1) {
             showMenuAdmin();
         } else if(pilihan == 2) {
-            cout << "\n=== MENU USER ===" << endl;
-            cout << "Menu user belum tersedia." << endl;
+            showMenuUser();
         } else if(pilihan == 3) {
             cout << "\n=== EXIT ===" << endl;
         } else {

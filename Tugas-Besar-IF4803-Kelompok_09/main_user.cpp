@@ -8,7 +8,7 @@ void menuManajemenDokter() {
     string spesialisasi;
 
     do {
-        cout << "\n===== MENU MANAJEMEN DOKTER =====" << endl;
+        cout << "\n===== Study Case Dokter =====" << endl;
         cout << "1. Tampilkan Semua Dokter" << endl;
         cout << "2. Cari Dokter Berdasarkan Spesialisasi" << endl;
         cout << "3. Hitung Jumlah Pasien Setiap Dokter" << endl;
@@ -74,7 +74,7 @@ void menuManajemenPasien() {
     InfoPasien info;
 
     do {
-        cout << "\n===== MENU MANAJEMEN PASIEN =====" << endl;
+        cout << "\n===== Study Case Pasien =====" << endl;
         cout << "1. Tambah Pasien ke Dokter" << endl;
         cout << "2. Hapus Pasien dari Dokter (Umur >= 18)" << endl;
         cout << "3. Tampilkan Semua Pasien dari Dokter" << endl;
@@ -183,6 +183,32 @@ void menuManajemenPasien() {
         }
 
     } while (pilihan != 0);
+}
+
+void showMenuUser(){
+    int pilihan = -1;
+
+    while(pilihan != 0) {
+        cout << "\n========================================" << endl;
+        cout << "           MENU User                   " << endl;
+        cout << "========================================" << endl;
+        cout << "1. Study Case Dokter" << endl;
+        cout << "2. Study Case Pasien" << endl;
+        cout << "0. Kembali ke Menu Utama" << endl;
+        cout << "========================================" << endl;
+        cout << "Pilih menu: ";
+        cin >> pilihan;
+
+        if(pilihan == 1) {
+            menuManajemenDokter();
+        } else if(pilihan == 2) {
+            menuManajemenPasien();
+        } else if(pilihan == 0) {
+            cout << "\nKembali ke menu utama..." << endl;
+        } else {
+            cout << "\nPilihan tidak valid!" << endl;
+        }
+    }
 }
 
 
