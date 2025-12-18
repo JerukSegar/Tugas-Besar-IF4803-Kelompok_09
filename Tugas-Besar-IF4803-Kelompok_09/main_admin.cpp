@@ -92,8 +92,31 @@ void showMenuManajemenDokter() {
 
         } else if(pilihan == 5) {
             cout << "\n=== INSERT AFTER DOKTER ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat!" << endl;
+            } else {
+                int idCari;
+                cout << "Masukkan ID Dokter setelahnya: ";
+                cin >> idCari;
 
+                adrDokter prec = searchDokter(listDokter, idCari);
+                if (prec == nullptr) {
+                    cout << "Dokter tidak ditemukan." << endl;
+                } else {
+                    InfoDokter info;
+                    cout << "Masukkan ID Dokter baru: ";
+                    cin >> info.idDokter;
+                    cin.ignore();
+                    cout << "Masukkan Nama Dokter: ";
+                    getline(cin, info.nama);
+                    cout << "Masukkan Spesialisasi: ";
+                    getline(cin, info.spesialisasi);
+
+                    adrDokter baru = createElmDokter(info);
+                    insertAfterD(prec, baru);
+                    cout << "Dokter berhasil ditambahkan setelah " << prec->info.nama << endl;
+                }
+            }
         } else if(pilihan == 6) {
             cout << "\n=== DELETE FIRST DOKTER ===" << endl;
             if (!isDokterListCreated) {
@@ -126,12 +149,40 @@ void showMenuManajemenDokter() {
 
         } else if(pilihan == 8) {
             cout << "\n=== DELETE AFTER DOKTER ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat!" << endl;
+            } else {
+                int idCari;
+                cout << "Masukkan ID Dokter sebelumnya: ";
+                cin >> idCari;
 
+                adrDokter prec = searchDokter(listDokter, idCari);
+                if (prec == nullptr || prec->next == nullptr) {
+                    cout << "Dokter setelahnya tidak ada." << endl;
+                } else {
+                    adrDokter del;
+                    deleteAfterD(prec, del);
+                    cout << "Dokter " << del->info.nama << " berhasil dihapus." << endl;
+                    delete del;
+                }
+            }
         } else if(pilihan == 9) {
             cout << "\n=== SEARCH DOKTER ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
-
+            if (!isDokterListCreated) {
+                cout << "List dokter belum dibuat!" << endl;
+            } else {
+                int idCari;
+                cout << "Masukkan ID Dokter: ";
+                cin >> idCari;
+                adrDokter found = searchDokter(listDokter, idCari);
+                if (found != nullptr) {
+                    cout << "Dokter ditemukan!" << endl;
+                    cout << "Nama: " << found->info.nama << endl;
+                    cout << "Spesialisasi: " << found->info.spesialisasi << endl;
+                } else {
+                    cout << "Dokter tidak ditemukan." << endl;
+                }
+            }
         } else if(pilihan == 10) {
             cout << "\n=== SHOW ALL DOKTER ===" << endl;
             if (!isDokterListCreated) {
@@ -243,11 +294,38 @@ void showMenuManajemenPasien() {
                 insertLastP(listPasien, pasien);
                 cout << "Pasien berhasil ditambahkan di akhir list!" << endl;
             }
-
         } else if(pilihan == 5) {
             cout << "\n=== INSERT AFTER PASIEN ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat!" << endl;
+            } else {
+                int idCari;
+                cout << "Masukkan ID Pasien sebelumnya: ";
+                cin >> idCari;
 
+                adrPasien prec = searchPasien(listPasien, idCari);
+                if (prec == nullptr) {
+                    cout << "Pasien tidak ditemukan." << endl;
+                } else {
+                    InfoPasien info;
+                    cout << "Masukkan ID Pasien baru: ";
+                    cin >> info.idPasien;
+                    cin.ignore();
+                    cout << "Masukkan Nama: ";
+                    getline(cin, info.nama);
+                    cout << "Masukkan Umur: ";
+                    cin >> info.umur;
+                    cout << "Masukkan ID Penyakit: ";
+                    cin >> info.idPenyakit;
+                    cin.ignore();
+                    cout << "Masukkan Nama Penyakit: ";
+                    getline(cin, info.penyakit);
+
+                    adrPasien baru = createElmPasien(info);
+                    insertAfterP(prec, baru);
+                    cout << "Pasien berhasil ditambahkan." << endl;
+                }
+            }
         } else if(pilihan == 6) {
             cout << "\n=== DELETE FIRST PASIEN ===" << endl;
             if (!isPasienListCreated) {
@@ -280,8 +358,23 @@ void showMenuManajemenPasien() {
 
         } else if(pilihan == 8) {
             cout << "\n=== DELETE AFTER PASIEN ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat!" << endl;
+            } else {
+                int idCari;
+                cout << "Masukkan ID Pasien sebelumnya: ";
+                cin >> idCari;
 
+                adrPasien prec = searchPasien(listPasien, idCari);
+                if (prec == nullptr || prec->next == nullptr) {
+                    cout << "Pasien setelahnya tidak ada." << endl;
+                } else {
+                    adrPasien del;
+                    deleteAfterP(prec, del);
+                    cout << "Pasien " << del->info.nama << " berhasil dihapus." << endl;
+                    delete del;
+                }
+            }
         } else if(pilihan == 9) {
             cout << "\n=== SEARCH PASIEN ===" << endl;
             if (!isPasienListCreated) {
@@ -303,8 +396,11 @@ void showMenuManajemenPasien() {
 
         } else if(pilihan == 10) {
             cout << "\n=== SHOW ALL PASIEN ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
-
+            if (!isPasienListCreated) {
+                cout << "List pasien belum dibuat!" << endl;
+            } else {
+                showAllPasien(listPasien);
+            }
         } else if(pilihan == 0) {
             cout << "Kembali ke Menu Admin..." << endl;
         } else {
@@ -326,13 +422,39 @@ void showMenuFiturRelasi() {
         cin >> pilihan;
 
         if(pilihan == 1) {
-            cout << "\n=== ADD PASIEN TO DOKTER ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
+            int idDokter, idPasien;
+            cout << "ID Dokter: ";
+            cin >> idDokter;
+            cout << "ID Pasien: ";
+            cin >> idPasien;
+
+            adrDokter d = searchDokter(listDokter, idDokter);
+            adrPasien p = searchPasien(listPasien, idPasien);
+
+            if (d && p) {
+                addPasienToDokter(d, p);
+                cout << "Pasien berhasil ditambahkan ke dokter." << endl;
+            } else {
+                cout << "Dokter atau Pasien tidak ditemukan." << endl;
+            }
 
         } else if(pilihan == 2) {
-            cout << "\n=== REMOVE PASIEN FROM DOKTER ===" << endl;
-            cout << "Fitur ini belum tersedia." << endl;
+            int idDokter, idPasien;
+            cout << "ID Dokter: ";
+            cin >> idDokter;
+            cout << "ID Pasien: ";
+            cin >> idPasien;
 
+            adrDokter d = searchDokter(listDokter, idDokter);
+            if (d) {
+                adrPasien del;
+                removePasienFromDokter(d, idPasien, del);
+                if (del) {
+                    cout << "Pasien berhasil dihapus dari dokter." << endl;
+                } else {
+                    cout << "Pasien tidak ditemukan." << endl;
+                }
+            }
         } else if(pilihan == 3) {
             cout << "\n=== SEARCH PASIEN IN DOKTER ===" << endl;
             if (!isDokterListCreated) {
